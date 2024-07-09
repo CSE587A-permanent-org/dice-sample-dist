@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "probability-intro"
+version = "2.0.0"
+description = "First assignment in the Probability module for CSE 587A"
+authors = ["chase mateusiak <chase.mateusiak@gmail.com>"]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+packages = [{include = "dice_sample"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cse587autils = "^2.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.0"
+autopep8 = "^2.0.2"
+flake8 = "^6.1.0"
+gradescope-utils = "^0.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
