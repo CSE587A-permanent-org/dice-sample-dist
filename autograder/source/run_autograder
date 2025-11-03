@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+rm /autograder/submission/assignment/test_assignment.py
+
+# Take the version of test_assignment.py that that was stored in the container
+# at build time and put it where the submitted test_assignment.py was.
+cp /autograder/source/test_assignment.py /autograder/submission/assignment/
+
+# run_tests.py is run from the submission directory, which is the top level
+# of the repo the students submitted, containing as subdirectories "assignment"
+# and "autograder". run_tests.py looks in the directory "assignment" to
+# discover the test file test_assignment.py, which is the version saved in the
+# container at build time.
+cd /autograder/submission
+
+# Skip poetry install since dependencies are pre-installed in container
+python3 /autograder/source/run_tests.py
