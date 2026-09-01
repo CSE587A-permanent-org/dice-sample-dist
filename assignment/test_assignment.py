@@ -2,7 +2,11 @@ import numpy as np
 import unittest
 from gradescope_utils.autograder_utils.decorators import weight
 
-from assignment.dice_sample import generate_sample
+# Handle both VS Code (relative import) and autograder (absolute import) contexts
+#try:
+#   from .assignment import generate_sample  # VS Code context
+#except ImportError:
+from assignment.dice_sample import generate_sample  # Autograder context
 
 class TestDiceSample(unittest.TestCase):
 
