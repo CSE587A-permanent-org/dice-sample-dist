@@ -2,6 +2,16 @@
 	"name": "Comp Bio Student DevContainer",
 	"image": "ghcr.io/michael-brent/compbio-base:latest",
 
+	// 👇 sshd lets `gh codespace ssh` / `logs` / `cp` reach the container
+	// directly. Without it those commands fail outright ("Please check if
+	// an SSH server is installed"), which blocks debugging a student's
+	// Codespace from the command line.
+	"features": {
+		"ghcr.io/devcontainers/features/sshd:1": {
+			"version": "latest"
+		}
+	},
+
 	// 👇 'onCreateCommand' runs and finishes before VS Code connects and its
 	// extensions activate (unlike 'postCreateCommand', which runs in the
 	// background while VS Code is already connecting). The Python extension
