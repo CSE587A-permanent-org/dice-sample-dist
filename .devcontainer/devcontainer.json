@@ -19,7 +19,19 @@
 	// there yet, it can lock onto the system interpreter for the workspace
 	// and ignore python.defaultInterpreterPath afterward. Installing here
 	// closes that race.
-	"onCreateCommand": "cd ${containerWorkspaceFolder} && poetry config virtualenvs.in-project true && poetry install",
+	//
+	// The first line appends ai-hosts-blocklist.txt to /etc/hosts, routing
+	// major AI provider domains to 0.0.0.0 -- a defense-in-depth measure so
+	// a CLI or script installed inside the container (e.g. `pip install
+	// openai` and a raw API call, or an AI CLI tool) can't reach its
+	// provider. It does NOT touch anything outside this container (a
+	// browser tab, phone, another device) and does NOT affect GitHub
+	// Copilot, whose traffic shares core github.com/githubusercontent.com
+	// infrastructure that the devcontainer itself depends on. The grep
+	// guard makes this safe to run more than once without duplicating
+	// entries, though in practice /etc/hosts is fresh on every new
+	// container and onCreateCommand runs once per container lifetime.
+	"onCreateCommand": "grep -qF 'AI / LLM provider blocklist' /etc/hosts || cat ${containerWorkspaceFolder}/.devcontainer/ai-hosts-blocklist.txt | sudo tee -a /etc/hosts > /dev/null; cd ${containerWorkspaceFolder} && poetry config virtualenvs.in-project true && poetry install",
 
 	// 👇 Configure tool-specific properties.
 	"customizations": {
