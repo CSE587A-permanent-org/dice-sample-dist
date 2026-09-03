@@ -27,11 +27,30 @@
             "extensions":["ms-python.python",
 						  "njpwerner.autodocstring",
 						  "ms-toolsai.jupyter",
-						  "ms-python.mypy-type-checker"],
+						  "ms-python.mypy-type-checker",
+						  "-github.copilot",
+						  "-github.copilot-chat"],
 			// python.pythonPath was removed by the Python extension years
 			// ago and is silently ignored; python.defaultInterpreterPath is
 			// the setting it actually reads.
-			"settings": {"python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"}
+			//
+			// This is a teaching lab -- students are meant to write this
+			// code themselves, so AI chat/agent/completion features are
+			// off by default here. A "-" prefix on an extension id
+			// uninstalls it if present; chat.disableAIFeatures hides the
+			// Chat/Agent UI entirely (panel, "build with agent" entry
+			// points, inline suggestions) for any extension that provides
+			// it, not just Copilot. None of this is unbreakable: these are
+			// ordinary settings a student can flip back in their own User
+			// settings, and it does nothing about AI used outside this
+			// editor/container (a browser tab, another device). It raises
+			// friction and sets the intended default; it is not a
+			// technical guarantee.
+			"settings": {
+				"python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+				"chat.disableAIFeatures": true,
+				"github.copilot.enable": {"*": false}
+			}
             }
 		}
 
